@@ -67,6 +67,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var mockTweets = [{ name: 'John Doe', body: 'Cool Tweet Feed! #1' }, { name: 'Sarah Olah', body: 'Cool Tweet Feed! #2' }, { name: 'Linus Pharaoh', body: 'Cool Tweet Feed! #3' }];
+	
 	var Main = function (_React$Component) {
 	  _inherits(Main, _React$Component);
 	
@@ -83,7 +85,7 @@
 	        'div',
 	        { className: 'container' },
 	        React.createElement(_TweetBox2.default, null),
-	        React.createElement(_TweetList2.default, null)
+	        React.createElement(_TweetList2.default, { tweets: mockTweets })
 	      );
 	    }
 	  }]);
@@ -193,15 +195,17 @@
 	  _createClass(TweetList, [{
 	    key: "render",
 	    value: function render() {
+	      var tweets = this.props.tweets.map(function (tweet) {
+	        return React.createElement(_Tweet2.default, tweet);
+	      });
+	
 	      return React.createElement(
 	        "div",
 	        null,
 	        React.createElement(
 	          "ul",
 	          { className: "collection" },
-	          React.createElement(_Tweet2.default, null),
-	          React.createElement(_Tweet2.default, null),
-	          React.createElement(_Tweet2.default, null)
+	          tweets
 	        )
 	      );
 	    }
@@ -256,12 +260,12 @@
 	        React.createElement(
 	          "span",
 	          { className: "title" },
-	          "Eric Conde"
+	          this.props.name
 	        ),
 	        React.createElement(
 	          "p",
 	          null,
-	          "Tweet Message"
+	          this.props.body
 	        )
 	      );
 	    }

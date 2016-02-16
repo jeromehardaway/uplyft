@@ -1,12 +1,19 @@
 import TweetBox from './components/TweetBox';
 import TweetList from './components/TweetList';
 
+let mockTweets = [
+  { name: 'John Doe', body: 'Cool Tweet Feed! #1' },
+  { name: 'Sarah Olah', body: 'Cool Tweet Feed! #2' },
+  { name: 'Linus Pharaoh', body: 'Cool Tweet Feed! #3' },
+]
+
+
 class Main extends React.Component {
   render() {
     return (
       <div className="container">
         <TweetBox />
-        <TweetList />
+        <TweetList tweets={mockTweets} />
       </div>
     );
   }

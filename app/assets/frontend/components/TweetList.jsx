@@ -2,12 +2,12 @@ import Tweet from "./Tweet"
 
 class TweetList extends React.Component {
   render () {
+    let tweets = this.props.tweets.map(tweet => <Tweet {...tweet} />)
+
     return (
       <div>
         <ul className="collection">
-          <Tweet />
-          <Tweet />
-          <Tweet />
+          {tweets}
         </ul>
       </div>
     )
