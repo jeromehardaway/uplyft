@@ -1,5 +1,8 @@
-var TweetBox = React.createClass({
-  render: function() {
+class TweetBox extends React.Component {
+// or write as
+// export default class TweetBox extends React.Component
+// excluding the export line at the bottom
+  render () {
     return (
       <div className="row">
         <form>
@@ -13,20 +16,25 @@ var TweetBox = React.createClass({
       </div>
     );
   }
-});
-module.exports = TweetBox;
+}
+// this causes type to be of TweetBox()
+export default TweetBox;
 
-
-// export default class TweetBox extends React.Component {
-//   render() {
+// while below results to fn()
+// var TweetBox = React.createClass({
+//   render: function() {
 //     return (
-//       <div>
+//       <div className="row">
 //         <form>
-//           <textarea />
-//           <label>What's new?</label>
-//           <button>Tweet</button>
+//           <div className="input-field" >
+//             <textarea className="materialize-textarea" />
+//             <label>What's new?</label>
+//             <button className="btn right">Tweet</button>
+//           </div>
+//
 //         </form>
 //       </div>
-//     )
+//     );
 //   }
-// }
+// });
+// module.exports = TweetBox;

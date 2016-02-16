@@ -2,7 +2,7 @@ import Tweet from "./Tweet"
 
 class TweetList extends React.Component {
   render () {
-    let tweets = this.props.tweets.map(tweet => <Tweet {...tweet} />)
+    let tweets = this.props.tweets.map(tweet => <Tweet key={tweet.id} {...tweet} />)
 
     return (
       <div>

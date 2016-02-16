@@ -67,7 +67,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var mockTweets = [{ name: 'John Doe', body: 'Cool Tweet Feed! #1' }, { name: 'Sarah Olah', body: 'Cool Tweet Feed! #2' }, { name: 'Linus Pharaoh', body: 'Cool Tweet Feed! #3' }];
+	var mockTweets = [{ id: 1, name: 'John Doe', body: 'Cool Tweet Feed! #1' }, { id: 2, name: 'Sarah Olah', body: 'Cool Tweet Feed! #2' }, { id: 3, name: 'Linus Pharaoh', body: 'Cool Tweet Feed! #3' }];
 	
 	var Main = function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -111,50 +111,85 @@
 
 	"use strict";
 	
-	var TweetBox = React.createClass({
-	  displayName: "TweetBox",
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      { className: "row" },
-	      React.createElement(
-	        "form",
-	        null,
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TweetBox = function (_React$Component) {
+	  _inherits(TweetBox, _React$Component);
+	
+	  function TweetBox() {
+	    _classCallCheck(this, TweetBox);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TweetBox).apply(this, arguments));
+	  }
+	
+	  _createClass(TweetBox, [{
+	    key: "render",
+	
+	    // or write as
+	    // export default class TweetBox extends React.Component
+	    // excluding the export line at the bottom
+	    value: function render() {
+	      return React.createElement(
+	        "div",
+	        { className: "row" },
 	        React.createElement(
-	          "div",
-	          { className: "input-field" },
-	          React.createElement("textarea", { className: "materialize-textarea" }),
+	          "form",
+	          null,
 	          React.createElement(
-	            "label",
-	            null,
-	            "What's new?"
-	          ),
-	          React.createElement(
-	            "button",
-	            { className: "btn right" },
-	            "Tweet"
+	            "div",
+	            { className: "input-field" },
+	            React.createElement("textarea", { className: "materialize-textarea" }),
+	            React.createElement(
+	              "label",
+	              null,
+	              "What's new?"
+	            ),
+	            React.createElement(
+	              "button",
+	              { className: "btn right" },
+	              "Tweet"
+	            )
 	          )
 	        )
-	      )
-	    );
-	  }
-	});
-	module.exports = TweetBox;
+	      );
+	    }
+	  }]);
 	
-	// export default class TweetBox extends React.Component {
-	//   render() {
+	  return TweetBox;
+	}(React.Component);
+	// this causes type to be of TweetBox()
+	
+	
+	exports.default = TweetBox;
+	
+	// while below results to fn()
+	// var TweetBox = React.createClass({
+	//   render: function() {
 	//     return (
-	//       <div>
+	//       <div className="row">
 	//         <form>
-	//           <textarea />
-	//           <label>What's new?</label>
-	//           <button>Tweet</button>
+	//           <div className="input-field" >
+	//             <textarea className="materialize-textarea" />
+	//             <label>What's new?</label>
+	//             <button className="btn right">Tweet</button>
+	//           </div>
+	//
 	//         </form>
 	//       </div>
-	//     )
+	//     );
 	//   }
-	// }
+	// });
+	// module.exports = TweetBox;
 
 /***/ },
 /* 2 */
@@ -168,6 +203,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -196,7 +233,7 @@
 	    key: "render",
 	    value: function render() {
 	      var tweets = this.props.tweets.map(function (tweet) {
-	        return React.createElement(_Tweet2.default, tweet);
+	        return React.createElement(_Tweet2.default, _extends({ key: tweet.id }, tweet));
 	      });
 	
 	      return React.createElement(
