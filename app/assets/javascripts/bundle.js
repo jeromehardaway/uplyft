@@ -183,7 +183,7 @@
 	            ),
 	            React.createElement(
 	              "button",
-	              { type: "submit", className: "btn right" },
+	              { type: "submit", "class": "btn right" },
 	              "Tweet"
 	            )
 	          )
