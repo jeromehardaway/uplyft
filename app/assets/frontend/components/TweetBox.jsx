@@ -3,9 +3,12 @@ var TweetBox = React.createClass({
     return (
       <div>
         <form>
-          <textarea />
-          <label>What's new?</label>
-          <button>Tweet</button>
+          <div className="input-field" >
+            <textarea className="materialize-textarea" />
+            <label>What's new?</label>
+            <button className="btn right">Tweet</button>
+          </div>
+
         </form>
       </div>
     );

@@ -42,9 +42,9 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!*****************************************!*\
-  !*** ./app/assets/frontend/main.js.jsx ***!
-  \*****************************************/
+/*!**************************************!*\
+  !*** ./app/assets/frontend/main.jsx ***!
+  \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97,9 +97,9 @@
 
 /***/ },
 /* 1 */
-/*!********************************************************!*\
-  !*** ./app/assets/frontend/components/TweetBox.js.jsx ***!
-  \********************************************************/
+/*!*****************************************************!*\
+  !*** ./app/assets/frontend/components/TweetBox.jsx ***!
+  \*****************************************************/
 /***/ function(module, exports) {
 
 	"use strict";
@@ -114,16 +114,20 @@
 	      React.createElement(
 	        "form",
 	        null,
-	        React.createElement("textarea", null),
 	        React.createElement(
-	          "label",
-	          null,
-	          "What's new?"
-	        ),
-	        React.createElement(
-	          "button",
-	          null,
-	          "Tweet"
+	          "div",
+	          { className: "input-field" },
+	          React.createElement("textarea", { className: "materialize-textarea" }),
+	          React.createElement(
+	            "label",
+	            null,
+	            "What's new?"
+	          ),
+	          React.createElement(
+	            "button",
+	            { className: "btn right" },
+	            "Tweet"
+	          )
 	        )
 	      )
 	    );
