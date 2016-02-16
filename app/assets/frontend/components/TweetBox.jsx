@@ -1,7 +1,7 @@
 var TweetBox = React.createClass({
   render: function() {
     return (
-      <div>
+      <div className="row">
         <form>
           <div className="input-field" >
             <textarea className="materialize-textarea" />
