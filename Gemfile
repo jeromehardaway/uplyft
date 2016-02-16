@@ -44,3 +44,4 @@ group :development do
 end
 
 gem 'react-rails', '~> 1.6.0'
+gem 'devise'

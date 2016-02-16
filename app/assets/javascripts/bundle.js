@@ -104,10 +104,15 @@
 	
 	var R = ReactDOM;
 	var documentReady = function documentReady() {
-	  R.render(
-	  // <h1>Hello World</h1>, // <= render directly... or
-	  React.createElement(Main, null), // render from a component (inline or separate file)
-	  document.getElementById('react'));
+	  var reactNode = document.getElementById('react');
+	  if (reactNode) {
+	    console.log(reactNode);
+	    // // render directly... or
+	    // R.render(<h1>Hello World</h1>,reactNode);
+	
+	    // render from a component (inline or separate file)
+	    R.render(React.createElement(Main, null), reactNode);
+	  }
 	};
 	$(documentReady);
 

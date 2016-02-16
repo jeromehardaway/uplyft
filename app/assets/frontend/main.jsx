@@ -26,11 +26,14 @@ class Main extends React.Component {
 
 let R = ReactDOM
 let documentReady = () => {
-  R.render(
-    // <h1>Hello World</h1>, // <= render directly... or
-    <Main />, // render from a component (inline or separate file)
-    document.getElementById('react')
+  let reactNode = document.getElementById('react');
+  if (reactNode) {
+    console.log(reactNode);
+    // // render directly... or
+    // R.render(<h1>Hello World</h1>,reactNode);
 
-  )
+    // render from a component (inline or separate file)
+    R.render(<Main />, reactNode);
+  }
 }
 $(documentReady);
