@@ -6,7 +6,14 @@ export default {
     console.log(3, "ServerAction.receivedTweets (success)");
     AppDispatcher.dispatch({
       actionType: ActionTypes.RECEIVED_TWEETS,
-      rawTweets: rawTweets // or ES6 rawTweets if rawTweets == rawTweets
+      rawTweets // or ES6 rawTweets if rawTweets == rawTweets
+    })
+  },
+
+  receivedOneTweet(rawTweet) {
+    AppDispatcher.dispatch({
+      actionType: ActionTypes.RECEIVED_ONE_TWEET,
+      rawTweet
     })
   }
 }

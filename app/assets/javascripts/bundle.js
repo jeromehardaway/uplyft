@@ -152,7 +152,7 @@
 	      return React.createElement(
 	        'div',
 	        { className: 'container' },
-	        React.createElement(_TweetBox2.default, { sendTweet: this.addTweet.bind(this) }),
+	        React.createElement(_TweetBox2.default, null),
 	        React.createElement(_TweetList2.default, { tweets: this.state.tweetsList })
 	      );
 	    }
@@ -179,15 +179,21 @@
 /*!*****************************************************!*\
   !*** ./app/assets/frontend/components/TweetBox.jsx ***!
   \*****************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _TweetActions = __webpack_require__(/*! ../actions/TweetActions */ 12);
+	
+	var _TweetActions2 = _interopRequireDefault(_TweetActions);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -205,7 +211,7 @@
 	  }
 	
 	  _createClass(TweetBox, [{
-	    key: "sendTweet",
+	    key: 'sendTweet',
 	
 	    // or write as
 	    // export default class TweetBox extends React.Component
@@ -218,31 +224,34 @@
 	      event.preventDefault();
 	      // call parent prop which in turn calls
 	      // the method to add the tweet in the list
-	      this.props.sendTweet(this.refs.tweetTextArea.value);
+	      // this.props.sendTweet(this.refs.tweetTextArea.value);
+	
+	      // flux way... call an action from view
+	      _TweetActions2.default.sendTweet(this.refs.tweetTextArea.value);
 	      this.refs.tweetTextArea.value = '';
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
-	        "div",
-	        { className: "row" },
+	        'div',
+	        { className: 'row' },
 	        React.createElement(
-	          "form",
+	          'form',
 	          { onSubmit: this.sendTweet.bind(this) },
 	          React.createElement(
-	            "div",
-	            { className: "input-field" },
-	            React.createElement("textarea", { ref: "tweetTextArea", className: "materialize-textarea" }),
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('textarea', { ref: 'tweetTextArea', className: 'materialize-textarea' }),
 	            React.createElement(
-	              "label",
+	              'label',
 	              null,
-	              "What's new?"
+	              'What\'s new?'
 	            ),
 	            React.createElement(
-	              "button",
-	              { type: "submit", className: "btn right" },
-	              "Tweet"
+	              'button',
+	              { type: 'submit', className: 'btn right' },
+	              'Tweet'
 	            )
 	          )
 	        )
@@ -483,6 +492,10 @@
 	    case _constants2.default.RECEIVED_TWEETS:
 	      console.log(4, "TweetStore (with raw)");
 	      _tweets = action.rawTweets;
+	      TweetStore.emitChange();
+	      break;
+	    case _constants2.default.RECEIVED_ONE_TWEET:
+	      _tweets.unshift(action.rawTweet);
 	      TweetStore.emitChange();
 	      break;
 	    default:
@@ -943,7 +956,8 @@
 	  value: true
 	});
 	exports.default = {
-	  RECEIVED_TWEETS: 'RECEIVED_TWEETS'
+	  RECEIVED_TWEETS: 'RECEIVED_TWEETS',
+	  RECEIVED_ONE_TWEET: 'RECEIVED_ONE_TWEET'
 	};
 
 /***/ },
@@ -1276,6 +1290,9 @@
 	  getAllTweets: function getAllTweets() {
 	    console.log(1, "TweetActions.getAllTweets");
 	    _API2.default.getAllTweets();
+	  },
+	  sendTweet: function sendTweet(body) {
+	    _API2.default.createTweet(body);
 	  }
 	};
 
@@ -1324,6 +1341,17 @@
 	    }).error(function (error) {
 	      return console.log(error);
 	    });
+	  },
+	  createTweet: function createTweet(body) {
+	    $.post({
+	      url: "/tweets",
+	      data: { tweet: { body: body } },
+	      dataType: "json"
+	    }).success(function (rawTweet) {
+	      return _ServerActions2.default.receivedOneTweet(rawTweet);
+	    }).error(function (error) {
+	      return console.log(error);
+	    });
 	  }
 	};
 
@@ -1356,6 +1384,12 @@
 	    _dispatcher2.default.dispatch({
 	      actionType: _constants2.default.RECEIVED_TWEETS,
 	      rawTweets: rawTweets // or ES6 rawTweets if rawTweets == rawTweets
+	    });
+	  },
+	  receivedOneTweet: function receivedOneTweet(rawTweet) {
+	    _dispatcher2.default.dispatch({
+	      actionType: _constants2.default.RECEIVED_ONE_TWEET,
+	      rawTweet: rawTweet
 	    });
 	  }
 	};

@@ -1,3 +1,5 @@
+import TweetActions from '../actions/TweetActions'
+
 class TweetBox extends React.Component {
 // or write as
 // export default class TweetBox extends React.Component
@@ -10,7 +12,10 @@ class TweetBox extends React.Component {
     event.preventDefault();
     // call parent prop which in turn calls
     // the method to add the tweet in the list
-    this.props.sendTweet(this.refs.tweetTextArea.value);
+    // this.props.sendTweet(this.refs.tweetTextArea.value);
+
+    // flux way... call an action from view
+    TweetActions.sendTweet(this.refs.tweetTextArea.value);
     this.refs.tweetTextArea.value = '';
   }
 
