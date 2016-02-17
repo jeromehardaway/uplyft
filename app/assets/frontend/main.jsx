@@ -8,10 +8,19 @@ class Main extends React.Component {
   }
 
   addTweet(newTweet) {
-    let newTweetsList = this.state.tweetsList;
-    newTweetsList.unshift({id: Date.now(), name: 'Guest', body: newTweet})
-    // rerender using the new tweetsList state object...
-    this.setState({tweetsList: newTweetsList, edit: false});
+    $.ajax({
+      url: "/tweets",
+      method: "POST",
+      data: { tweet: { body: newTweet } },
+      dataType: "json"
+    })
+    .success(tweet => {
+      let newTweetsList = this.state.tweetsList;
+      newTweetsList.unshift(tweet)
+      // rerender using the new tweetsList state object...
+      this.setState({tweetsList: newTweetsList, edit: false});
+    })
+    .error(error => console.log(error))
   }
 
   componentDidMount() {

@@ -82,21 +82,32 @@
 	  _createClass(Main, [{
 	    key: 'addTweet',
 	    value: function addTweet(newTweet) {
-	      var newTweetsList = this.state.tweetsList;
-	      newTweetsList.unshift({ id: Date.now(), name: 'Guest', body: newTweet });
-	      // rerender using the new tweetsList state object...
-	      this.setState({ tweetsList: newTweetsList, edit: false });
+	      var _this2 = this;
+	
+	      $.ajax({
+	        url: "/tweets",
+	        method: "POST",
+	        data: { tweet: { body: newTweet } },
+	        dataType: "json"
+	      }).success(function (tweet) {
+	        var newTweetsList = _this2.state.tweetsList;
+	        newTweetsList.unshift(tweet);
+	        // rerender using the new tweetsList state object...
+	        _this2.setState({ tweetsList: newTweetsList, edit: false });
+	      }).error(function (error) {
+	        return console.log(error);
+	      });
 	    }
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      $.ajax({
 	        url: "/tweets",
 	        dataType: "json"
 	      }).success(function (data) {
-	        return _this2.setState({ tweetsList: data });
+	        return _this3.setState({ tweetsList: data });
 	      }).error(function (error) {
 	        return console.log(error);
 	      });
