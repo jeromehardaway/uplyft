@@ -17,6 +17,7 @@ class Main extends React.Component {
     this._onChange = this._onChange.bind(this);
   }
 
+  // Moved to TweetStore.getAll()
   // formattedTweets(newTweetList) {
   //   let formattedTweetList = newTweetList.map(tweet => {
   //     tweet.formattedDate = moment(tweet.created_at).fromNow();
