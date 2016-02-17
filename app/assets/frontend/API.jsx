@@ -2,7 +2,7 @@ import ServerAction from "./actions/ServerActions";
 
 export default {
   getAllTweets() {
-    console.log(2, "API");
+    console.log(2, "API.$get");
     $.get({
       url: "/tweets",
       dataType: "json"

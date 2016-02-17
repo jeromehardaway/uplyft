@@ -3,13 +3,18 @@ import TweetList from './components/TweetList';
 import TweetStore from './stores/TweetStore';
 
 import TweetActions from "./actions/TweetActions";
+console.log(0, "Main Entry Point");
 TweetActions.getAllTweets()
+
+let getAppState = () => {
+  return { tweetsList: TweetStore.getAll() };
+}
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tweetsList: [] };
-
+    this.state = getAppState(); //{ tweetsList: [] };
+    this._onChange = this._onChange.bind(this);
   }
 
   // formattedTweets(newTweetList) {
@@ -40,12 +45,22 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
+    TweetStore.addChangeListener(this._onChange);
     // $.ajax({
     //   url: "/tweets",
     //   dataType: "json"
     // })
     // .success(data => this.setState(this.formattedTweets(data)))
     // .error(error => console.log(error))
+  }
+
+  componentWillUnmount() {
+    TweetStore.removeChangeListener(this._onChange);
+  }
+
+  _onChange() {
+    console.log(5, "Main._onChange");
+    this.setState(getAppState());
   }
 
   render() {

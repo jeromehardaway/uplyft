@@ -11,12 +11,12 @@ class TweetEventEmitter extends EventEmitter {
     return _tweets;
   }
   emitChange() {
-    this.emit(CHANGE_EVENT)
+    this.emit(CHANGE_EVENT);
   }
-  addChangeListener() {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   }
-  removeChangeListener() {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
 }
@@ -25,7 +25,7 @@ let TweetStore = new TweetEventEmitter();
 AppDispatcher.register(action => {
   switch(action.actionType) {
     case ActionTypes.RECEIVED_TWEETS:
-      console.log(4, "TweetStore");
+      console.log(4, "TweetStore (with raw)");
       _tweets = action.rawTweets;
       TweetStore.emitChange()
       break;

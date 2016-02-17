@@ -75,7 +75,12 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	console.log(0, "Main Entry Point");
 	_TweetActions2.default.getAllTweets();
+	
+	var getAppState = function getAppState() {
+	  return { tweetsList: _TweetStore2.default.getAll() };
+	};
 	
 	var Main = function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -85,8 +90,8 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props));
 	
-	    _this.state = { tweetsList: [] };
-	
+	    _this.state = getAppState(); //{ tweetsList: [] };
+	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
 	
@@ -121,12 +126,24 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      _TweetStore2.default.addChangeListener(this._onChange);
 	      // $.ajax({
 	      //   url: "/tweets",
 	      //   dataType: "json"
 	      // })
 	      // .success(data => this.setState(this.formattedTweets(data)))
 	      // .error(error => console.log(error))
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _TweetStore2.default.removeChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: '_onChange',
+	    value: function _onChange() {
+	      console.log(5, "Main._onChange");
+	      this.setState(getAppState());
 	    }
 	  }, {
 	    key: 'render',
@@ -402,7 +419,7 @@
 	
 	exports.default = {
 	  getAllTweets: function getAllTweets() {
-	    console.log(1, "TweetActions");
+	    console.log(1, "TweetActions.getAllTweets");
 	    _API2.default.getAllTweets();
 	  }
 	};
@@ -443,7 +460,7 @@
 	
 	exports.default = {
 	  getAllTweets: function getAllTweets() {
-	    console.log(2, "API");
+	    console.log(2, "API.$get");
 	    $.get({
 	      url: "/tweets",
 	      dataType: "json"
@@ -514,12 +531,12 @@
 	    }
 	  }, {
 	    key: "addChangeListener",
-	    value: function addChangeListener() {
+	    value: function addChangeListener(callback) {
 	      this.on(CHANGE_EVENT, callback);
 	    }
 	  }, {
 	    key: "removeChangeListener",
-	    value: function removeChangeListener() {
+	    value: function removeChangeListener(callback) {
 	      this.removeListener(CHANGE_EVENT, callback);
 	    }
 	  }]);
@@ -532,7 +549,7 @@
 	_dispatcher2.default.register(function (action) {
 	  switch (action.actionType) {
 	    case _constants2.default.RECEIVED_TWEETS:
-	      console.log(4, "TweetStore");
+	      console.log(4, "TweetStore (with raw)");
 	      _tweets = action.rawTweets;
 	      TweetStore.emitChange();
 	      break;
@@ -1022,7 +1039,7 @@
 	
 	exports.default = {
 	  receivedTweets: function receivedTweets(rawTweets) {
-	    console.log(3, "ServerAction.receivedTweets");
+	    console.log(3, "ServerAction.receivedTweets (success)");
 	    _dispatcher2.default.dispatch({
 	      actionType: _constants2.default.RECEIVED_TWEETS,
 	      rawTweets: rawTweets // or ES6 rawTweets if rawTweets == rawTweets
