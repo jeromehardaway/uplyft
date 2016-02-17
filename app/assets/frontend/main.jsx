@@ -7,6 +7,17 @@ class Main extends React.Component {
     this.state = { tweetsList: [] };
   }
 
+  formattedTweets(newTweetList) {
+    let formattedTweetList = newTweetList.map(tweet => {
+      tweet.formattedDate = moment(tweet.created_at).fromNow();
+      return tweet;
+    })
+
+    return {
+      tweetsList: formattedTweetList
+    };
+  }
+
   addTweet(newTweet) {
     $.ajax({
       url: "/tweets",
@@ -18,7 +29,7 @@ class Main extends React.Component {
       let newTweetsList = this.state.tweetsList;
       newTweetsList.unshift(tweet)
       // rerender using the new tweetsList state object...
-      this.setState({tweetsList: newTweetsList, edit: false});
+      this.setState(this.formattedTweets(newTweetsList));
     })
     .error(error => console.log(error))
   }
@@ -28,7 +39,7 @@ class Main extends React.Component {
       url: "/tweets",
       dataType: "json"
     })
-    .success(data => this.setState({tweetsList: data}))
+    .success(data => this.setState(this.formattedTweets(data)))
     .error(error => console.log(error))
   }
 
@@ -46,7 +57,6 @@ let R = ReactDOM
 let documentReady = () => {
   let reactNode = document.getElementById('react');
   if (reactNode) {
-    console.log(reactNode);
     // // render directly... or
     // R.render(<h1>Hello World</h1>,reactNode);
 

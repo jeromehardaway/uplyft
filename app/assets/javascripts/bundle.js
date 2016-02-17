@@ -80,6 +80,18 @@
 	  }
 	
 	  _createClass(Main, [{
+	    key: 'formattedTweets',
+	    value: function formattedTweets(newTweetList) {
+	      var formattedTweetList = newTweetList.map(function (tweet) {
+	        tweet.formattedDate = moment(tweet.created_at).fromNow();
+	        return tweet;
+	      });
+	
+	      return {
+	        tweetsList: formattedTweetList
+	      };
+	    }
+	  }, {
 	    key: 'addTweet',
 	    value: function addTweet(newTweet) {
 	      var _this2 = this;
@@ -93,7 +105,7 @@
 	        var newTweetsList = _this2.state.tweetsList;
 	        newTweetsList.unshift(tweet);
 	        // rerender using the new tweetsList state object...
-	        _this2.setState({ tweetsList: newTweetsList, edit: false });
+	        _this2.setState(_this2.formattedTweets(newTweetsList));
 	      }).error(function (error) {
 	        return console.log(error);
 	      });
@@ -107,7 +119,7 @@
 	        url: "/tweets",
 	        dataType: "json"
 	      }).success(function (data) {
-	        return _this3.setState({ tweetsList: data });
+	        return _this3.setState(_this3.formattedTweets(data));
 	      }).error(function (error) {
 	        return console.log(error);
 	      });
@@ -131,7 +143,6 @@
 	var documentReady = function documentReady() {
 	  var reactNode = document.getElementById('react');
 	  if (reactNode) {
-	    console.log(reactNode);
 	    // // render directly... or
 	    // R.render(<h1>Hello World</h1>,reactNode);
 	
@@ -350,6 +361,11 @@
 	          "span",
 	          { className: "title" },
 	          this.props.name
+	        ),
+	        React.createElement(
+	          "time",
+	          null,
+	          this.props.formattedDate
 	        ),
 	        React.createElement(
 	          "p",
