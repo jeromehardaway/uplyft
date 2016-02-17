@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'profile' => 'profile#index'
+  patch 'profile' => 'profile#update'
 end
