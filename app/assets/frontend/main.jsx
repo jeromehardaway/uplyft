@@ -4,6 +4,7 @@ import { Router, Route, Link } from 'react-router'
 import { browserHistory } from 'react-router'
 
 import Index from './components/Index'
+import Follow from './components/Follow'
 
 class App extends React.Component {
   render() {
@@ -26,6 +27,7 @@ let documentReady = () => {
       <Router history={browserHistory}>
         <Router component={App}>
           <Router path="/" component={Index} />
+          <Router path="/follow" component={Follow} />
         </Router>
       </Router>
       , reactNode

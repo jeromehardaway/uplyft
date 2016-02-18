@@ -10,4 +10,8 @@ Rails.application.routes.draw do
 
   get 'profile' => 'profile#index'
   patch 'profile' => 'profile#update'
+
+
+  match '*all', to: 'home#index', via: [:get]
+
 end
