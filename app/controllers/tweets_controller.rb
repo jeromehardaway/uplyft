@@ -1,6 +1,8 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @tweets = current_user.tweets
+    @tweets = Tweet.all#current_user.tweets
 
     respond_to do |f|
       f.html
