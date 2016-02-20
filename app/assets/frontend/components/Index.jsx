@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 import TweetBox from './TweetBox';
 import TweetList from './TweetList';
 import TweetStore from '../stores/TweetStore';
@@ -68,6 +70,7 @@ class Index extends React.Component {
   render() {
     return (
       <div className="container">
+        <Link to="/follow">Who to follow</Link>
         <TweetBox />
         <TweetList tweets={this.state.tweetsList} />
       </div>

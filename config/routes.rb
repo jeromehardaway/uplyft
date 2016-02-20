@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'profile' => 'profile#index'
   patch 'profile' => 'profile#update'
 
-
+  # NOTE: catch all routes, redirect to home so react-router can process
   match '*all', to: 'home#index', via: [:get]
 
 end
