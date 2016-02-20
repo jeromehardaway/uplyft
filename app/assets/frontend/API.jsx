@@ -19,5 +19,14 @@ export default {
     })
     .success(rawTweet => ServerAction.receivedOneTweet(rawTweet))
     .error(error => console.log(error))
+  },
+
+  getAllUsers() {
+    $.get({
+      url: "/followers/random",
+      dataType: "json"
+    })
+    .success( rawUsers => ServerAction.receivedUsers(rawUsers) )
+    .error(error => console.log(error));
   }
 }

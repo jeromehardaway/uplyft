@@ -25730,6 +25730,16 @@
 	    }).error(function (error) {
 	      return console.log(error);
 	    });
+	  },
+	  getAllUsers: function getAllUsers() {
+	    $.get({
+	      url: "/followers/random",
+	      dataType: "json"
+	    }).success(function (rawUsers) {
+	      return _ServerActions2.default.receivedUsers(rawUsers);
+	    }).error(function (error) {
+	      return console.log(error);
+	    });
 	  }
 	};
 
@@ -25768,6 +25778,12 @@
 	    _dispatcher2.default.dispatch({
 	      actionType: _constants2.default.RECEIVED_ONE_TWEET,
 	      rawTweet: rawTweet
+	    });
+	  },
+	  receivedUsers: function receivedUsers(rawUsers) {
+	    _dispatcher2.default.dispatch({
+	      actionType: _constants2.default.RECEIVED_USERS,
+	      rawUsers: rawUsers
 	    });
 	  }
 	};
@@ -26124,7 +26140,8 @@
 	});
 	exports.default = {
 	  RECEIVED_TWEETS: 'RECEIVED_TWEETS',
-	  RECEIVED_ONE_TWEET: 'RECEIVED_ONE_TWEET'
+	  RECEIVED_ONE_TWEET: 'RECEIVED_ONE_TWEET',
+	  RECEIVED_USERS: 'RECEIVED_USERS'
 	};
 
 /***/ },
@@ -26669,6 +26686,10 @@
 	
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 	
+	var _UserActions = __webpack_require__(/*! ../actions/UserActions */ 235);
+	
+	var _UserActions2 = _interopRequireDefault(_UserActions);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26690,16 +26711,33 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Follow).call(this, props));
 	
 	    _this.state = getAppState();
+	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Follow, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _UserActions2.default.getAllUsers();
+	      _UserStore2.default.addChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _UserStore2.default.removeChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: '_onChange',
+	    value: function _onChange() {
+	      this.setState(getAppState());
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var followers = this.state.users.map(function (user) {
+	      var users = this.state.users.map(function (user) {
 	        return _react2.default.createElement(
 	          'li',
-	          { className: 'collection-item avatar' },
+	          { key: user.id, className: 'collection-item avatar' },
 	          _react2.default.createElement('img', { src: user.gravatar, className: 'circle' }),
 	          _react2.default.createElement(
 	            'span',
@@ -26719,7 +26757,7 @@
 	        _react2.default.createElement(
 	          'ul',
 	          { className: 'collection' },
-	          followers
+	          users
 	        )
 	      );
 	    }
@@ -26794,15 +26832,11 @@
 	
 	_dispatcher2.default.register(function (action) {
 	  switch (action.actionType) {
-	    // case ActionTypes.RECEIVED_TWEETS:
-	    //   console.log(4, "TweetStore (with raw)");
-	    //   _tweets = action.rawTweets;
-	    //   TweetStore.emitChange()
-	    //   break;
-	    // case ActionTypes.RECEIVED_ONE_TWEET:
-	    //   _tweets.unshift(action.rawTweet);
-	    //   TweetStore.emitChange()
-	    //   break;
+	    case _constants2.default.RECEIVED_USERS:
+	      _users = action.rawUsers;
+	      UserStore.emitChange();
+	      break;
+	
 	    default:
 	    // no operation
 	  }
@@ -26868,6 +26902,32 @@
 	}(_events.EventEmitter);
 	
 	exports.default = AppEventEmitter;
+
+/***/ },
+/* 234 */,
+/* 235 */
+/*!*****************************************************!*\
+  !*** ./app/assets/frontend/actions/UserActions.jsx ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _API = __webpack_require__(/*! ../API */ 219);
+	
+	var _API2 = _interopRequireDefault(_API);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	  getAllUsers: function getAllUsers() {
+	    _API2.default.getAllUsers();
+	  }
+	};
 
 /***/ }
 /******/ ]);

@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :tweets
 
+  # def as_json(options={})
+  #   {id: id, name: name}
+  # end
+
   def name
     first_name.present? ? "#{first_name} #{last_name}" : email
   end
