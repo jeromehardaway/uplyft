@@ -28,5 +28,15 @@ export default {
     })
     .success( rawUsers => ServerAction.receivedUsers(rawUsers) )
     .error(error => console.log(error));
+  },
+
+  followUser(userId) {
+    $.post({
+      url: "/followers",
+      dataType: "json",
+      data: { user: { user_id: userId } }
+    })
+    .success(rawFollower => ServerAction.followedOneFollower(rawFollower))
+    .error(error => console.log(error))
   }
 }

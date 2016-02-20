@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
 import UserStore from '../stores/UserStore'
-import UserAction from '../actions/UserActions'
+import UserActions from '../actions/UserActions'
 
 let getAppState = () => {
   return { users: UserStore.getAll() };
@@ -16,7 +16,7 @@ class Follow extends React.Component {
   }
 
   componentDidMount() {
-    UserAction.getAllUsers();
+    UserActions.getAllUsers();
     UserStore.addChangeListener(this._onChange);
   }
 
@@ -28,12 +28,26 @@ class Follow extends React.Component {
     this.setState(getAppState());
   }
 
+  followUser(userId) {
+    UserActions.followUser(userId)
+  }
+
+  followClasses(following) {
+    console.log("following? ", following);
+    return "secondary-content btn-floating " + (following ? "green" : "grey");
+  }
+
   render () {
     let users = this.state.users.map( user => {
+      console.log("user >> ", user);
       return (
         <li key={user.id} className="collection-item avatar">
           <img src={user.gravatar} className="circle" />
           <span className="title">{user.name}</span>
+          <a className={this.followClasses(user.following)}
+            onClick={this.followUser.bind(this, user.id)}>
+            <i className="material-icons">person_pin</i>
+          </a>
         </li>
       )
     })
