@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import UserStore from '../stores/UserStore'
 import UserAction from '../actions/UserActions'
@@ -42,6 +43,7 @@ class Follow extends React.Component {
         <ul className="collection">
           {users}
         </ul>
+        <Link to="/">Back</Link>
       </div>
     )
   }

@@ -26682,6 +26682,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 159);
+	
 	var _UserStore = __webpack_require__(/*! ../stores/UserStore */ 232);
 	
 	var _UserStore2 = _interopRequireDefault(_UserStore);
@@ -26758,6 +26760,11 @@
 	          'ul',
 	          { className: 'collection' },
 	          users
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/' },
+	          'Back'
 	        )
 	      );
 	    }
