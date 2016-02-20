@@ -2,7 +2,7 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @tweets = Tweet.all#current_user.tweets
+    @tweets = Tweet.stream_for(current_user.id)
 
     respond_to do |f|
       f.html
