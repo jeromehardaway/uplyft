@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
   has_many :tweets
 
-  # def as_json(options={})
-  #   {id: id, name: name}
-  # end
+  def as_json(options={})
+    {id: id, name: name, gravatar: gravatar}
+  end
 
   def name
     first_name.present? ? "#{first_name} #{last_name}" : email
@@ -18,5 +18,10 @@ class User < ActiveRecord::Base
     where(["id != :current_user_id", {current_user_id: current_user_id}])
     .order("random()")
     .all
+  end
+
+  def gravatar
+    hash = Digest::MD5.hexdigest(email)
+    "http://www.gravatar.com/avatar/#{hash}"
   end
 end
