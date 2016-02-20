@@ -25437,8 +25437,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	console.log(0, "Main Entry Point");
-	
 	var getAppState = function getAppState() {
 	  return { tweetsList: _TweetStore2.default.getAll() };
 	};
@@ -25451,51 +25449,17 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Index).call(this, props));
 	
-	    _this.state = getAppState(); //{ tweetsList: [] };
+	    _this.state = getAppState();
 	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
 	
-	  // Moved to TweetStore.getAll()
-	  // formattedTweets(newTweetList) {
-	  //   let formattedTweetList = newTweetList.map(tweet => {
-	  //     tweet.formattedDate = moment(tweet.created_at).fromNow();
-	  //     return tweet;
-	  //   })
-	  //
-	  //   return {
-	  //     tweetsList: formattedTweetList
-	  //   };
-	  // }
-	
 	  _createClass(Index, [{
-	    key: 'addTweet',
-	    value: function addTweet(newTweet) {
-	      // $.ajax({
-	      //   url: "/tweets",
-	      //   method: "POST",
-	      //   data: { tweet: { body: newTweet } },
-	      //   dataType: "json"
-	      // })
-	      // .success(tweet => {
-	      //   let newTweetsList = this.state.tweetsList;
-	      //   newTweetsList.unshift(tweet)
-	      //   // rerender using the new tweetsList state object...
-	      //   this.setState(this.formattedTweets(newTweetsList));
-	      // })
-	      // .error(error => console.log(error))
-	    }
-	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      // console.log(0, "Main Entry Point");
 	      _TweetActions2.default.getAllTweets();
 	      _TweetStore2.default.addChangeListener(this._onChange);
-	      // $.ajax({
-	      //   url: "/tweets",
-	      //   dataType: "json"
-	      // })
-	      // .success(data => this.setState(this.formattedTweets(data)))
-	      // .error(error => console.log(error))
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -25505,7 +25469,7 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange() {
-	      console.log(5, "Main._onChange");
+	      // console.log(5, "Main._onChange");
 	      this.setState(getAppState());
 	    }
 	  }, {
@@ -25666,7 +25630,7 @@
 	
 	exports.default = {
 	  getAllTweets: function getAllTweets() {
-	    console.log(1, "TweetActions.getAllTweets");
+	    // console.log(1, "TweetActions.getAllTweets");
 	    _API2.default.getAllTweets();
 	  },
 	  sendTweet: function sendTweet(body) {
@@ -25710,7 +25674,7 @@
 	
 	exports.default = {
 	  getAllTweets: function getAllTweets() {
-	    console.log(2, "API.$get");
+	    // console.log(2, "API.$get");
 	    $.get({
 	      url: "/tweets",
 	      dataType: "json"
@@ -26360,7 +26324,7 @@
 	_dispatcher2.default.register(function (action) {
 	  switch (action.actionType) {
 	    case _constants2.default.RECEIVED_TWEETS:
-	      console.log(4, "TweetStore (with raw)");
+	      // console.log(4, "TweetStore (with raw)");
 	      _tweets = action.rawTweets;
 	      TweetStore.emitChange();
 	      break;
@@ -26760,7 +26724,6 @@
 	  }, {
 	    key: 'followClasses',
 	    value: function followClasses(following) {
-	      console.log("following? ", following);
 	      return "secondary-content btn-floating " + (following ? "green" : "grey");
 	    }
 	  }, {
@@ -26769,7 +26732,6 @@
 	      var _this2 = this;
 	
 	      var users = this.state.users.map(function (user) {
-	        console.log("user >> ", user);
 	        return _react2.default.createElement(
 	          'li',
 	          { key: user.id, className: 'collection-item avatar' },
@@ -26869,7 +26831,6 @@
 	  _createClass(UserEventEmitter, [{
 	    key: "getAll",
 	    value: function getAll() {
-	      console.log("_followedIds >> ", _followedIds);
 	      return _users.map(function (user) {
 	        user.following = _followedIds.indexOf(user.id) >= 0;
 	        return user;

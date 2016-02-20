@@ -22,4 +22,3 @@ This app was developed using the following tools:
 2. Add re-tweet
 3. Display additional data i.e., #of followers, #of tweets, etc.
 4. Extend registration view to display first and last names
-5.

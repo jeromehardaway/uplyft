@@ -7,7 +7,6 @@ let _followedIds = [];
 
 class UserEventEmitter extends AppEventEmitter {
   getAll() {
-    console.log("_followedIds >> ", _followedIds);
     return _users.map(user => {
       user.following = _followedIds.indexOf(user.id) >= 0;
       return user;

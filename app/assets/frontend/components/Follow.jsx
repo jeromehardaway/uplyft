@@ -33,13 +33,11 @@ class Follow extends React.Component {
   }
 
   followClasses(following) {
-    console.log("following? ", following);
     return "secondary-content btn-floating " + (following ? "green" : "grey");
   }
 
   render () {
     let users = this.state.users.map( user => {
-      console.log("user >> ", user);
       return (
         <li key={user.id} className="collection-item avatar">
           <img src={user.gravatar} className="circle" />
