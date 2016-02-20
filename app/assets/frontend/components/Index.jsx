@@ -7,7 +7,7 @@ import TweetStore from '../stores/TweetStore';
 
 import TweetActions from "../actions/TweetActions";
 console.log(0, "Main Entry Point");
-TweetActions.getAllTweets()
+
 
 let getAppState = () => {
   return { tweetsList: TweetStore.getAll() };
@@ -49,6 +49,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
+    TweetActions.getAllTweets()
     TweetStore.addChangeListener(this._onChange);
     // $.ajax({
     //   url: "/tweets",
