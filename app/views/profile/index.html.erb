@@ -12,10 +12,32 @@
         <%= f.text_field :last_name %>
         <label for="last_name">Last Name</label>
       </div>
+      <div class="switch">
+ <label>
+   Youth
+   <input type="checkbox">
+   <span class="lever"></span>
+   Teacher
+ </label>
+</div>
       <div class="row">
         <button type="submit" name="save_button" class="btn right">Save</button>
       </div>
     </div>
   </form>
 </div>
+<p>
+  <h5>Select Which Categories You wish See Info on</h5>
+  <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+  <label for="filled-in-box">Education</label>
+</p>
+<p>
+  <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+  <label for="filled-in-box">Resources</label>
+</p>
+<p>
+  <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+  <label for="filled-in-box">Support</label>
+</p>
+
 <% end %>
